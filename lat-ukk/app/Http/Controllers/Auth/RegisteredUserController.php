@@ -36,16 +36,19 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        // Role dikunci ke 'user' di server — tidak pernah diambil dari input.
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role' => 'user',
         ]);
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        // Pendaftar selalu role user → arahkan ke beranda/katalog.
+        return redirect()->intended('/', 302);
     }
 }
