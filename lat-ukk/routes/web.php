@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductPhotoController;
 use App\Http\Controllers\ProfileController;
@@ -29,5 +30,10 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
 
 // Katalog publik: lihat produk + foto
 Route::resource('products', ProductController::class)->only(['index', 'show']);
+
+// Komentar: user & admin yang login
+Route::post('comments', [CommentController::class, 'store'])
+    ->middleware('auth')
+    ->name('comments.store');
 
 require __DIR__.'/auth.php';

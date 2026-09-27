@@ -8,17 +8,18 @@ use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
+    // Tambah komentar (user & admin yang login)
     public function store(Request $request)
     {
-        $request->validate([
-            'product_id'   => 'required|exists:products,id',
-            'comment_text' => 'required|string',
+        $validated = $request->validate([
+            'product_id' => 'required|exists:products,id',
+            'comment' => 'required|string|max:1000',
         ]);
 
         Comment::create([
-            'product_id'   => $request->product_id,
-            'user_id'      => Auth::id(),
-            'comment_text' => $request->comment_text,
+            'product_id' => $validated['product_id'],
+            'user_id' => Auth::id(),
+            'comment' => $validated['comment'],
         ]);
 
         return back()->with('success', 'Komentar berhasil ditambahkan!');

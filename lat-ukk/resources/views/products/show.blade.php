@@ -33,9 +33,22 @@
                 <a href="{{ route('products.index') }}" class="text-gray-600 hover:underline">&larr; Kembali ke Katalog</a>
             </div>
 
-            <!-- Daftar Komentar -->
+            <!-- Komentar -->
             <div class="bg-white p-6 rounded-lg shadow-sm">
                 <h3 class="text-lg font-bold mb-4">Komentar</h3>
+
+                @auth
+                    <form action="{{ route('comments.store') }}" method="POST" class="mb-6">
+                        @csrf
+                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                        <textarea name="comment" rows="3" class="block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" placeholder="Tulis komentar... (maks 1000 karakter)" required>{{ old('comment') }}</textarea>
+                        <x-input-error :messages="$errors->get('comment')" class="mt-2" />
+                        <x-primary-button class="mt-2">Kirim Komentar</x-primary-button>
+                    </form>
+                @else
+                    <p class="text-sm text-gray-500 mb-4">Silakan <a href="{{ route('login') }}" class="text-indigo-600 underline">login</a> untuk menambahkan komentar.</p>
+                @endauth
+
                 <div class="space-y-4">
                     @forelse ($product->comments as $comment)
                         <div class="border-b pb-3">
