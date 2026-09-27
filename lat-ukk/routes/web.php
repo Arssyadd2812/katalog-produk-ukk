@@ -10,7 +10,11 @@ use Illuminate\Support\Facades\Route;
 Route::redirect('/', '/products');
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('dashboard', [
+        'productCount' => \App\Models\Product::count(),
+        'photoCount' => \App\Models\ProductPhoto::count(),
+        'userCount' => \App\Models\User::where('role', 'user')->count(),
+    ]);
 })->middleware(['auth', 'is_admin'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
