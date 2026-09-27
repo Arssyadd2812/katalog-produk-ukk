@@ -32,5 +32,16 @@
                 {{ $slot }}
             </main>
         </div>
+
+        <script>
+            // Cegah double submit: kunci tombol submit saat form dikirim
+            document.addEventListener('submit', function (e) {
+                const btn = e.target.querySelector('button[type="submit"], input[type="submit"]');
+                if (btn && !btn.disabled) {
+                    btn.disabled = true;
+                    btn.classList.add('opacity-50', 'cursor-not-allowed');
+                }
+            });
+        </script>
     </body>
 </html>

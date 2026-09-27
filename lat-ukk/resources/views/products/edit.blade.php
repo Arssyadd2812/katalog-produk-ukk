@@ -51,10 +51,11 @@
             <!-- Tambah foto -->
             <div class="bg-white p-6 rounded-lg shadow-sm">
                 <h3 class="font-bold mb-4">Tambah Foto</h3>
-                <form action="{{ route('products.photos.store', $product) }}" method="POST" enctype="multipart/form-data" class="flex items-start space-x-2">
+                <form action="{{ route('products.photos.store', $product) }}" method="POST" enctype="multipart/form-data" class="flex flex-wrap items-start gap-2">
                     @csrf
-                    <div class="flex-1">
-                        <input type="file" name="photo" class="block w-full" accept=".jpg,.jpeg,.png" required>
+                    <div class="flex-1 min-w-40">
+                        <label for="photo-tambah" class="sr-only">Pilih foto produk</label>
+                        <input id="photo-tambah" type="file" name="photo" class="block w-full" accept=".jpg,.jpeg,.png" required>
                         <x-input-error :messages="$errors->get('photo')" class="mt-2" />
                     </div>
                     <x-primary-button>Upload</x-primary-button>
@@ -67,13 +68,14 @@
                 <h3 class="font-bold mb-4">Foto Produk ({{ $product->photos->count() }})</h3>
                 <div class="space-y-4">
                     @forelse ($product->photos as $photo)
-                        <div class="flex items-center space-x-4 border-b pb-4">
-                            <img src="{{ asset('storage/' . $photo->photo_path) }}" class="w-24 h-24 object-cover rounded" alt="Foto produk">
-                            <div class="flex-1 space-y-2">
-                                <form action="{{ route('photos.update', $photo) }}" method="POST" enctype="multipart/form-data" class="flex items-center space-x-2">
+                        <div class="flex flex-wrap items-center gap-4 border-b pb-4">
+                            <img src="{{ asset('storage/' . $photo->photo_path) }}" class="w-24 h-24 object-cover rounded" alt="Foto {{ $product->name }}" loading="lazy">
+                            <div class="flex-1 min-w-40 space-y-2">
+                                <form action="{{ route('photos.update', $photo) }}" method="POST" enctype="multipart/form-data" class="flex flex-wrap items-center gap-2">
                                     @csrf
                                     @method('PUT')
-                                    <input type="file" name="photo" class="text-sm" accept=".jpg,.jpeg,.png" required>
+                                    <label for="photo-ganti-{{ $photo->id }}" class="sr-only">Ganti foto</label>
+                                    <input id="photo-ganti-{{ $photo->id }}" type="file" name="photo" class="text-sm" accept=".jpg,.jpeg,.png" required>
                                     <button type="submit" class="text-yellow-600 hover:text-yellow-900 text-sm font-semibold">Ganti</button>
                                 </form>
                                 <form action="{{ route('photos.destroy', $photo) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus foto ini?')">
