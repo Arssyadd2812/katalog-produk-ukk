@@ -93,15 +93,26 @@ File foto tersimpan di `storage/app/public/products` (validasi `image|mimes:jpg,
 
 ## Screenshot
 
-Simpan screenshot di `docs/screenshots/` dengan nama berikut:
+### Katalog Produk
+![Katalog Produk](docs/screenshots/katalog.png)
 
-1. `katalog.png` — halaman katalog produk (grid responsif)
-2. `detail.png` — detail produk + foto + komentar
-3. `login.png` — halaman login
-4. `register.png` — halaman register
-5. `dashboard-admin.png` — dashboard admin
-6. `tambah-produk.png` — form tambah produk + foto (admin)
-7. `edit-foto.png` — kelola foto di halaman edit (admin)
+### Detail Produk
+![Detail Produk](docs/screenshots/detail.png)
+
+### Login
+![Login](docs/screenshots/login.png)
+
+### Register
+![Register](docs/screenshots/register.png)
+
+### Dashboard Admin
+![Dashboard Admin](docs/screenshots/dashboard-admin.png)
+
+### Tambah Produk
+![Tambah Produk](docs/screenshots/tambah-produk.png)
+
+### Kelola Foto Produk (Edit)
+![Kelola Foto Produk](docs/screenshots/edit-foto.png)
 
 ## Testing Manual (Tahap 9 — 25/25 lolos via `php artisan serve`)
 
