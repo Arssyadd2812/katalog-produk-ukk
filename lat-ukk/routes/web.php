@@ -5,9 +5,8 @@ use App\Http\Controllers\ProductPhotoController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Beranda = katalog produk publik
+Route::redirect('/', '/products');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
